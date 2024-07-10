@@ -1,0 +1,8 @@
+facebook-business
+python-dotenv
+pandas
+requests
+google-cloud-bigquery
+pandas-gbq
+google-auth
+google-auth-oauthlib
