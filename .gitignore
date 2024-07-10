@@ -1,3 +1,4 @@
 .env
 push_to_git.sh
 pull_from_git.sh
+facebook_venv
