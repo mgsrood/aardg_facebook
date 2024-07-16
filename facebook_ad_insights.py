@@ -138,7 +138,7 @@ def get_facebook_insights():
                 if click['action_type'] == 'outbound_click':
                     outbound_clicks = click['value']
                     break
-        
+
         outbound_clicks_ctr = 0
         if 'outbound_clicks_ctr' in insight:
             for click in insight['outbound_clicks_ctr']:
@@ -151,7 +151,7 @@ def get_facebook_insights():
             for click in insight['cost_per_unique_outbound_click']:
                 if click['action_type'] == 'outbound_click':
                     cost_per_unique_outbound_click = click['value']
-                    break
+                    break   
 
         data.append({
             'account_id': insight.get('account_id'),
@@ -178,9 +178,7 @@ def get_facebook_insights():
     df = pd.DataFrame(data)
 
     # Correct data types
-    df['outbound_clicks'] = df['outbound_clicks'].astype(int)
-    df['outbound_clicks_ctr'] = df['outbound_clicks_ctr'].astype(float)
-    df['cost_per_unique_outbound_click'] = df['cost_per_unique_outbound_click'].astype(float)
+    df = df.astype(str)
 
     # BigQuery configuration
     project_id = os.getenv('PROJECT_ID')
