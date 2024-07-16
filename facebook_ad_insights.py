@@ -177,6 +177,11 @@ def get_facebook_insights():
     # Turn lists into a DataFrame
     df = pd.DataFrame(data)
 
+    # Correct data types
+    df['outbound_clicks'] = df['outbound_clicks'].astype(int)
+    df['outbound_clicks_ctr'] = df['outbound_clicks_ctr'].astype(float)
+    df['cost_per_unique_outbound_click'] = df['cost_per_unique_outbound_click'].astype(float)
+
     # BigQuery configuration
     project_id = os.getenv('PROJECT_ID')
     dataset_id = os.getenv('DATASET_ID')
