@@ -2,6 +2,17 @@ import requests
 from dotenv import load_dotenv
 import os
 
+def update_env_file(new_token):
+    with open('/Users/maxrood/werk/codering/aardg/projecten/facebook/.env', 'r') as file:
+        lines = file.readlines()
+
+    with open('/Users/maxrood/werk/codering/aardg/projecten/facebook/.env', 'w') as file:
+        for line in lines:
+            if line.startswith('FACEBOOK_LONG_TERM_ACCESS_TOKEN'):
+                file.write(f"FACEBOOK_LONG_TERM_ACCESS_TOKEN={new_token}\n")
+            else:
+                file.write(line)
+
 def renew_access_token():
     # Load environment variables from .env file
     load_dotenv()
@@ -21,16 +32,7 @@ def renew_access_token():
     else:
         raise Exception(f"Failed to renew access token: {response.text}")
 
-def update_env_file(new_token):
-    with open('.env', 'r') as file:
-        lines = file.readlines()
 
-    with open('.env', 'w') as file:
-        for line in lines:
-            if line.startswith('FACEBOOK_LONG_TERM_ACCESS_TOKEN'):
-                file.write(f"FACEBOOK_LONG_TERM_ACCESS_TOKEN={new_token}\n")
-            else:
-                file.write(line)
 
 if __name__ == "__main__":
     renew_access_token()
