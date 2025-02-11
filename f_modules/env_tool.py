@@ -6,7 +6,7 @@ def determine_base_dir():
     if "maxrood" in os.path.expanduser("~"):  # Specifiek voor je MacBook
             return "/Users/maxrood/werk/greit/klanten/aardg/"
     else:  # Voor je VM
-        return "/home/maxrood/aardg/projecten"
+        return "/home/maxrood/aardg/projecten/"
 
 def env_check():
     base_dir = determine_base_dir()
