@@ -3,7 +3,7 @@ import logging
 import os
 
 def determine_base_dir():
-    if "maxrood" in os.path.expanduser("~"):  # Specifiek voor je MacBook
+    if "Users" in os.path.expanduser("~"):  # Specifiek voor je MacBook
             return "/Users/maxrood/werk/greit/klanten/aardg/"
     else:  # Voor je VM
         return "/home/maxrood/aardg/projecten/"
