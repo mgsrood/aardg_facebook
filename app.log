@@ -1,0 +1,31 @@
+2025-02-11 15:59:13 - INFO - Logboek is geconfigureerd.
+2025-02-11 15:59:13 - WARNING - Token niet meer geldig, nieuwe aanvragen
+2025-02-11 15:59:17 - ERROR - Script mislukt: get_facebook_long_term_token() missing 2 required positional arguments: 'app_id' and 'app_secret'
+2025-02-11 15:59:18 - INFO - Script ended in 0:00:05
+2025-02-11 16:00:13 - INFO - Logboek is geconfigureerd.
+2025-02-11 16:00:13 - WARNING - Token niet meer geldig, nieuwe aanvragen
+2025-02-11 16:00:16 - INFO - Token successfully updated and saved in tokens.json
+2025-02-11 16:00:16 - ERROR - Script mislukt: 'NoneType' object has no attribute 'encode'
+2025-02-11 16:00:16 - INFO - Script ended in 0:00:03
+2025-02-11 16:00:54 - INFO - Logboek is geconfigureerd.
+2025-02-11 16:00:55 - INFO - Token nog geldig
+2025-02-11 16:01:13 - INFO - 55 out of 55 rows loaded.
+2025-02-11 16:01:17 - INFO - Script ended in 0:00:23
+2025-02-11 16:02:35 - INFO - Logboek is geconfigureerd.
+2025-02-11 16:02:35 - INFO - Token nog geldig
+2025-02-11 16:02:52 - INFO - 55 out of 55 rows loaded.
+2025-02-11 16:02:55 - INFO - Script ended in 0:00:21
+2025-02-11 16:04:12 - INFO - Logboek is geconfigureerd.
+2025-02-11 16:04:13 - INFO - Token nog geldig
+2025-02-11 16:04:24 - INFO - 55 out of 55 rows loaded.
+2025-02-11 16:04:28 - INFO - Script ended in 0:00:16
+2025-02-11 16:05:21 - INFO - Logboek is geconfigureerd.
+2025-02-11 16:05:21 - WARNING - Token niet meer geldig, nieuwe aanvragen
+2025-02-11 16:05:24 - INFO - Token successfully updated and saved in tokens.json
+2025-02-11 16:05:43 - INFO - 55 out of 55 rows loaded.
+2025-02-11 16:05:47 - INFO - Script ended in 0:00:27
+2025-02-11 16:11:41 - INFO - Logboek is geconfigureerd.
+2025-02-11 16:11:42 - WARNING - Token niet meer geldig, nieuwe aanvragen
+2025-02-11 16:11:52 - ERROR - Geen input ontvangen binnen de tijdslimiet. Taak wordt afgebroken.
+2025-02-11 16:11:52 - ERROR - Script mislukt: 'NoneType' object has no attribute 'encode'
+2025-02-11 16:11:52 - INFO - Script ended in 0:00:10

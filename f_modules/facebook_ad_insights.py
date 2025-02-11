@@ -1,24 +1,16 @@
-from facebook_business.api import FacebookAdsApi
-from facebook_business.adobjects.adaccount import AdAccount
+
+
 from facebook_business.adobjects.adsinsights import AdsInsights
-from google.cloud import bigquery
-import pandas as pd
-import os
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.api import FacebookAdsApi
 from datetime import datetime, timedelta
+from google.cloud import bigquery
 import pandas_gbq as pd_gbq
-from google.oauth2 import service_account
-from facebook_token_manager import renew_access_token, load_env
+import pandas as pd
+import logging
+import os
 
-def get_facebook_insights():
-    
-    # Load environment variables
-    load_env()
-
-    # GCP credentials
-    gc_keys = os.getenv("AARDG_GOOGLE_CREDENTIALS")
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gc_keys
-    credentials = service_account.Credentials.from_service_account_file(gc_keys)
-    project_id = credentials.project_id
+def get_facebook_insights(my_access_token, my_app_id, my_app_secret, ad_account_id, project_id, dataset_id, table_id):
     
     """Haalt Facebook Ads Insights op en schrijft ze weg naar BigQuery."""
     
@@ -26,21 +18,15 @@ def get_facebook_insights():
     start_date = (datetime.now() - timedelta(28)).strftime('%Y-%m-%d')
     end_date = datetime.now().strftime('%Y-%m-%d')
 
-    # Facebook credentials
-    my_app_id = os.getenv('FACEBOOK_APP_ID')
-    my_app_secret = os.getenv('FACEBOOK_APP_SECRET')
-    my_access_token = os.getenv('FACEBOOK_LONG_TERM_ACCESS_TOKEN')
-
     # Initialiseer de Facebook API
     try:
         FacebookAdsApi.init(app_id=my_app_id, app_secret=my_app_secret, access_token=my_access_token)
-        print("API initialized successfully.")
+        logging.info("API initialized successfully.")
     except Exception as e:
-        print(f"Error initializing FacebookAdsApi: {e}")
+        logging.error(f"Error initializing FacebookAdsApi: {e}")
         raise
 
     # Controleer de Ad Account ID
-    ad_account_id = os.getenv('FACEBOOK_AD_ACCOUNT_ID')
     if not ad_account_id:
         raise ValueError("Ad Account ID ontbreekt in de .env file.")
 
@@ -80,13 +66,7 @@ def get_facebook_insights():
     try:
         insights = account.get_insights(fields=fields, params=params)
     except Exception as e:
-        if 'Error validating access token' in str(e):
-            print("Token expired, renewing...")
-            new_token = renew_access_token()
-            FacebookAdsApi.init(app_id=my_app_id, app_secret=my_app_secret, access_token=new_token)
-            insights = account.get_insights(fields=fields, params=params)
-        else:
-            raise
+        logging.error(f"Ophalen inzichten mislukt: {e}")
 
     # Verwerken van de data
     data = []
@@ -124,15 +104,14 @@ def get_facebook_insights():
 
     # Zorg ervoor dat het DataFrame niet leeg is
     if df.empty:
-        print("Geen nieuwe Facebook Ads data gevonden.")
+        logging.warning("Geen nieuwe Facebook Ads data gevonden.")
         return
 
     # Correcte datatypes
     df = df.astype(str)
 
     # BigQuery configuratie
-    dataset_id = os.getenv('DATASET_ID')
-    table_id = os.getenv('INSIGHTS_TABLE_ID')
+
     table = f'{project_id}.{dataset_id}.{table_id}'
 
     # Initialize BigQuery client
@@ -146,7 +125,7 @@ def get_facebook_insights():
     try:
         existing_df = pd_gbq.read_gbq(query, project_id=project_id)
     except Exception as e:
-        print(f"Error loading existing data from BigQuery: {e}")
+        logging.error(f"Error loading existing data from BigQuery: {e}")
         existing_df = pd.DataFrame()
 
     # Combineer nieuwe data met bestaande data
@@ -192,7 +171,7 @@ def get_facebook_insights():
     client.query(merge_query).result()
     client.delete_table(temp_table)
 
-    print(f"Data written to BigQuery table {table}")
+    logging.info(f"Data written to BigQuery table {table}")
 
 if __name__ == "__main__":
     get_facebook_insights()
