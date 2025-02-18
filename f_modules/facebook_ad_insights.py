@@ -104,7 +104,7 @@ def get_facebook_insights(my_access_token, my_app_id, my_app_secret, ad_account_
 
     # Zorg ervoor dat het DataFrame niet leeg is
     if df.empty:
-        logging.warning("Geen nieuwe Facebook Ads data gevonden.")
+        logging.info("Geen nieuwe Facebook Ads data gevonden.")
         return
 
     # Correcte datatypes

@@ -53,7 +53,7 @@ def token_status(app_id, app_secret):
         logging.info("Token nog geldig")
         return access_token
     else:
-        logging.warning("Token niet meer geldig, nieuwe aanvragen")
+        logging.info("Token niet meer geldig, nieuwe aanvragen")
         
         # Timeout instellen voor input
         signal.signal(signal.SIGALRM, timeout_handler)
