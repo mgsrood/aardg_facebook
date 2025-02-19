@@ -27,7 +27,7 @@ def renew_access_token():
     long_term_token = os.getenv('FACEBOOK_LONG_TERM_ACCESS_TOKEN')
 
     url = f"https://graph.facebook.com/v20.0/oauth/access_token?grant_type=fb_exchange_token&client_id={app_id}&client_secret={app_secret}&fb_exchange_token={long_term_token}"
-    response = requests.get(url)
+    response = requests.get(url, timeout=120)
     if response.status_code == 200:
         new_token = response.json()['access_token']
         update_env_file(new_token)

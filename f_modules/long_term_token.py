@@ -11,7 +11,7 @@ def get_facebook_long_term_token(short_lived_token, app_id, app_secret):
           f"grant_type=fb_exchange_token&client_id={app_id}&client_secret={app_secret}" \
           f"&fb_exchange_token={short_lived_token}"
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=120)
 
     if response.status_code == 200:
         new_long_term_token = response.json()['access_token']

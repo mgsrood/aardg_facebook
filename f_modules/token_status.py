@@ -33,7 +33,7 @@ def check_token_validity(access_token, app_id, app_secret):
     """Controleer of de huidige token nog geldig is"""
 
     debug_url = f"https://graph.facebook.com/debug_token?input_token={access_token}&access_token={app_id}|{app_secret}"
-    response = requests.get(debug_url)
+    response = requests.get(debug_url, timeout=120)
     
     if response.status_code == 200:
         data = response.json()
